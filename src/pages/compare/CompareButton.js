@@ -4,6 +4,21 @@ import ModalButton from './ModalButton';
 import { API } from '../config';
 import { atom, useRecoilState } from 'recoil';
 
+const Wrapper = styled.div`
+    margin: 10px;
+    font-size: 15px;
+`;
+
+const Container = styled.div`
+    display: flex;
+
+    input {
+        width: 15px;
+        height: 15px;
+        margin-top: 10px;
+    }
+`;
+
 export const compareState = atom({
     key: 'CompareButton',
     default: [],
@@ -20,17 +35,6 @@ const CompareButton = () => {
             .then((res) => setData(res.data.content));
     }, []);
 
-    // data.forEach((el) => console.log(el));
-    // const newArr = data.map((x) => x.estimatedInitialInvestmentCost);
-    // const min = Math.min.apply(null, newArr);
-    // console.log(min);
-
-    const minNumber = () => {
-        const cost = data.map((x) => x.estimatedInitialInvestmentCost);
-        const min = Math.min.apply(null, cost);
-        console.log(min);
-    };
-
     const handleShowModal = () => {
         setIsModalOpen(!isModalOpen);
     };
@@ -43,7 +47,6 @@ const CompareButton = () => {
         const item = data[2];
         const { checked } = e.target;
         if (checked) {
-            // add item
             addItem(new Date().getMilliseconds(), item);
         } else {
             removeItem(item.id);
@@ -63,6 +66,10 @@ const CompareButton = () => {
             <Container>
                 <input type='checkbox' onChange={handleCheck} />
                 <Wrapper>비교</Wrapper>
+                <input type='checkbox' onChange={handleCheck} />
+                <Wrapper>비교</Wrapper>
+                <input type='checkbox' onChange={handleCheck} />
+                <Wrapper>비교</Wrapper>
             </Container>
             <ModalButton
                 handleCheck={handleCheck}
@@ -70,7 +77,6 @@ const CompareButton = () => {
                 isModalProduct={isModalProduct}
                 removeItem={removeItem}
                 data={data}
-                minNumber={minNumber}
                 isModalOpen={isModalOpen}
                 handleshowModal={handleShowModal}
                 handleModalProduct={handleModalProduct}
@@ -80,18 +86,3 @@ const CompareButton = () => {
 };
 
 export default CompareButton;
-
-const Wrapper = styled.div`
-    margin: 10px;
-    font-size: 15px;
-`;
-
-const Container = styled.div`
-    display: flex;
-
-    input {
-        width: 15px;
-        height: 15px;
-        margin-top: 10px;
-    }
-`;
