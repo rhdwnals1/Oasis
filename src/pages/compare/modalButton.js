@@ -1,36 +1,9 @@
 import React, { Fragment, useState } from 'react';
 import styled, { css } from 'styled-components';
-import BrandBuildingPage from './BrandBuildingPage';
-import BrandPage from './BrandPage';
-import BuildingPage from './BuildingPage';
-import ModalPage from './components/ModalPage';
-
-const ModalButton = ({ id, data, removeItem, isModalOpen }) => {
-    const [isModalProduct, setIsModalProduct] = useState(false);
-
-    const handleModalProduct = () => {
-        setIsModalProduct(!isModalProduct);
-    };
-
-    return (
-        <Fragment>
-            <Toggle isModalOpen={isModalOpen}>
-                <Compare onClick={() => handleModalProduct()}>
-                    <span>견적 비교하기</span>
-                    <PlaceNumber data={data}>({!data ? 0 : data?.length}/5)</PlaceNumber>
-                    <Arrow />
-                </Compare>
-                <Line />
-                <ModalPage id={id} removeItem={removeItem} isModalProduct={isModalProduct} />
-                {/* <BrandPage id={id} removeItem={removeItem} isModalProduct={isModalProduct} /> */}
-                {/* <BuildingPage id={id} removeItem={removeItem} isModalProduct={isModalProduct} /> */}
-                {/* <BrandBuildingPage id={id} removeItem={removeItem} isModalProduct={isModalProduct} /> */}
-            </Toggle>
-        </Fragment>
-    );
-};
-
-export default ModalButton;
+import BrandBuilding from './components/BrandBuilding';
+import NothingPage from './components/NothingPage';
+import { compareState } from '../compare/CompareButton';
+import { useRecoilState } from 'recoil';
 
 const Toggle = styled.div`
     width: 100%;
@@ -109,3 +82,32 @@ const Down = css`
 const Arrow = styled.div`
     display: ${(props) => (props.isModalOpen ? `${Down}` : `${Up}`)};
 `;
+
+const ModalButton = ({ id, removeItem, isModalOpen }) => {
+    const [isModalProduct, setIsModalProduct] = useState(false);
+    const [data, setData] = useRecoilState(compareState);
+
+    const handleModalProduct = () => {
+        setIsModalProduct(!isModalProduct);
+    };
+
+    return (
+        <Fragment>
+            <Toggle isModalOpen={isModalOpen}>
+                <Compare onClick={() => handleModalProduct()}>
+                    <span>견적 비교하기</span>
+                    <PlaceNumber data={data}>({!data ? 0 : data?.length}/5)</PlaceNumber>
+                    <Arrow />
+                </Compare>
+                <Line />
+                {data ? (
+                    <BrandBuilding isModalProduct={isModalProduct} id={id} removeItem={removeItem} />
+                ) : (
+                    <NothingPage isModalProduct={isModalProduct} id={id} />
+                )}
+            </Toggle>
+        </Fragment>
+    );
+};
+
+export default ModalButton;
