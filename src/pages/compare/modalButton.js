@@ -100,7 +100,6 @@ const ModalButton = ({ id, removeItem, isModalOpen }) => {
                     <Arrow />
                 </Compare>
                 <Line />
-                {console.log(data)}
                 {data ? (
                     <BrandBuilding isModalProduct={isModalProduct} id={id} removeItem={removeItem} />
                 ) : (
