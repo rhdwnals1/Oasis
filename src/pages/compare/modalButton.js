@@ -26,7 +26,6 @@ const Compare = styled.button`
     color: #ffffff;
     font-weight: 500;
     padding: 10px 48px 10px 24px;
-
     span {
         color: ${(props) => (props.isModalProduct ? '#ffffff' : 'ff5b29')};
         font-size: 14px;
@@ -37,7 +36,6 @@ const Compare = styled.button`
         height: 24px;
         line-height: normal;
     }
-
     &:hover {
         cursor: pointer;
     }

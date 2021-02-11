@@ -20,12 +20,10 @@ const Categories = styled.div`
     text-align: left;
     padding-top: 133px;
     color: #929292;
-
     .category {
         padding: 9px 0;
         border-bottom: 1px solid #eeeeee;
     }
-
     #last {
         margin-bottom: 40px;
     }
@@ -43,10 +41,8 @@ const Place = styled.div`
     height: 20px;
     width: 192px;
     font-weight: 700;
-
     .logoContainer {
         position: relative;
-
         .placeLogo {
             border-radius: 14px;
             justify-content: center;
@@ -54,7 +50,6 @@ const Place = styled.div`
             height: 40px;
             margin: 20px 0 0;
         }
-
         .delete {
             position: absolute;
             top: 10px;
@@ -68,13 +63,11 @@ const Place = styled.div`
             height: 20px;
             border-radius: 100%;
             padding-top: 3px;
-
             &:hover {
                 cursor: pointer;
             }
         }
     }
-
     .placetype {
         font-size: 12px;
         font-weight: 500;
@@ -82,7 +75,6 @@ const Place = styled.div`
         height: 18px;
         text-align: center;
     }
-
     .brand {
         height: 20px;
     }
@@ -90,7 +82,6 @@ const Place = styled.div`
         text-align: right;
         margin-top: 14px;
         font-weight: 500;
-
         .info {
             border-bottom: 1px solid #eeeeee;
             padding: 6.5px 50px 6.5px 30px;

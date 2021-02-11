@@ -20,12 +20,10 @@ const Categories = styled.div`
     text-align: left;
     padding-top: 186px;
     color: #929292;
-
     .category {
         padding: 9px 0;
         border-bottom: 1px solid #eeeeee;
     }
-
     #last {
         margin-bottom: 40px;
     }
@@ -41,18 +39,15 @@ const Place = styled.div`
     font-size: 14px;
     height: 20px;
     font-weight: 700;
-
     .placeimage {
         position: relative;
         margin: 2px 2px 0;
         margin-bottom: 30px;
-
         img {
             width: 188px;
             height: 76px;
             border-radius: 8px;
         }
-
         .placeLogo {
             border-radius: 14px;
             position: absolute;
@@ -62,7 +57,6 @@ const Place = styled.div`
             height: 40px;
         }
     }
-
     .delete {
         position: absolute;
         top: 10px;
@@ -76,37 +70,30 @@ const Place = styled.div`
         height: 20px;
         border-radius: 100%;
         padding-top: 3px;
-
         &:hover {
             cursor: pointer;
         }
     }
-
     .placetype {
         font-size: 12px;
         font-weight: 500;
         height: 18px;
     }
-
     .address {
         margin-top: 2px;
     }
-
     .container {
         text-align: right;
         margin-top: 20px;
         font-weight: 500;
-
         .info {
             border-bottom: 1px solid #eeeeee;
             padding: 6.5px 50px 6.5px 30px;
             font-weight: 600;
         }
-
         #cost {
             color: ${(props) => (props.min ? '#005cff' : '#212121')};
         }
-
         #profit {
             color: ${(props) => (props.max ? '#005cff' : '#212121')};
         }

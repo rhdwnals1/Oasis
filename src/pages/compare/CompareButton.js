@@ -11,7 +11,6 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
     display: flex;
-
     input {
         width: 15px;
         height: 15px;
