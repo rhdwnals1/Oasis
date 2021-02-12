@@ -83,17 +83,26 @@ const Place = styled.div`
         text-align: right;
         margin-top: 13.5px;
         font-weight: 500;
+
         .info {
             border-bottom: 1px solid #eeeeee;
             padding: 6.5px 50px 6.5px 30px;
             font-weight: 600;
             color: ${(props) => (props.minNumber ? 'blue' : 'black')};
         }
+
+        #cost {
+            color: ${(props) => (props.min ? '#005cff' : '#212121')};
+        }
     }
 `;
 
 const Building = ({ id, isModalProduct, removeItem }) => {
     const [data, setData] = useRecoilState(compareState);
+
+    const cost = data.map((x) => x.estimatedInitialInvestmentCost);
+    const min = Math.min.apply(null, cost);
+    // console.log(min);
 
     const countNumber = (number) => {
         var inputNumber = number < 0 ? false : number;
@@ -118,16 +127,6 @@ const Building = ({ id, isModalProduct, removeItem }) => {
 
         return resultString;
     };
-    // const minNumber = () => {
-    const cost = data.map((x) => x.estimatedInitialInvestmentCost);
-    const min = Math.min.apply(null, cost);
-    console.log(min);
-
-    // };
-
-    // const deposit = data.map((x) => x.deposit);
-    // const max = Math.max.apply(null, deposit);
-    // console.log(max);
 
     return (
         <Fragment>
@@ -144,17 +143,18 @@ const Building = ({ id, isModalProduct, removeItem }) => {
                 <PlaceData>
                     {data?.map((data, idx) => {
                         return (
-                            <Place key={idx} onClick={() => removeItem(id)}>
+                            <Place
+                                key={idx}
+                                onClick={() => removeItem(id)}
+                                min={min === data.estimatedInitialInvestmentCost}
+                            >
                                 <div className='placeimage'>
                                     <img src={data.src} alt='store'></img>
                                     <div className='delete'>X</div>
                                 </div>
-                                <div className='address'>
-                                    {data.brokerageStoreAddress}
-                                    {/* <Minimum /> */}
-                                </div>
+                                <div className='address'>{data.brokerageStoreAddress}</div>
                                 <div className='container'>
-                                    <div className='info'>
+                                    <div className='info' id='cost'>
                                         {countNumber(data.estimatedInitialInvestmentCost)
                                             .toString()
                                             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}

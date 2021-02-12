@@ -4,6 +4,8 @@ import BrandBuilding from './components/BrandBuilding';
 import NothingPage from './components/NothingPage';
 import { compareState } from '../compare/CompareButton';
 import { useRecoilState } from 'recoil';
+import Building from './components/Building';
+import Brand from './components/Brand';
 
 const Toggle = styled.div`
     width: 100%;
@@ -99,7 +101,9 @@ const ModalButton = ({ id, removeItem, isModalOpen }) => {
                 </Compare>
                 <Line />
                 {data ? (
-                    <BrandBuilding isModalProduct={isModalProduct} id={id} removeItem={removeItem} />
+                    // <BrandBuilding isModalProduct={isModalProduct} id={id} removeItem={removeItem} />
+                    // <Building isModalProduct={isModalProduct} id={id} removeItem={removeItem} />
+                    <Brand isModalProduct={isModalProduct} id={id} removeItem={removeItem} />
                 ) : (
                     <NothingPage isModalProduct={isModalProduct} id={id} />
                 )}

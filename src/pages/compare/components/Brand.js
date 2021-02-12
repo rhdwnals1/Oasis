@@ -41,8 +41,10 @@ const Place = styled.div`
     height: 20px;
     width: 192px;
     font-weight: 700;
+
     .logoContainer {
         position: relative;
+
         .placeLogo {
             border-radius: 14px;
             justify-content: center;
@@ -68,6 +70,7 @@ const Place = styled.div`
             }
         }
     }
+
     .placetype {
         font-size: 12px;
         font-weight: 500;
@@ -75,24 +78,41 @@ const Place = styled.div`
         height: 18px;
         text-align: center;
     }
+
     .brand {
         height: 20px;
     }
+
     .container {
         text-align: right;
         margin-top: 14px;
         font-weight: 500;
+
         .info {
             border-bottom: 1px solid #eeeeee;
             padding: 6.5px 50px 6.5px 30px;
             font-weight: 600;
             color: #212121;
         }
+
+        #cost {
+            color: ${(props) => (props.min ? '#005cff' : '#212121')};
+        }
+
+        #profit {
+            color: ${(props) => (props.max ? '#005cff' : '#212121')};
+        }
     }
 `;
 
 const Brand = ({ id, isModalProduct, removeItem }) => {
     const [content, setContent] = useRecoilState(compareState);
+
+    const cost = content.map((x) => x.estimatedInitialInvestmentCost);
+    const min = Math.min.apply(null, cost);
+
+    const profit = content.map((x) => x.expectationProfit);
+    const max = Math.max.apply(null, profit);
 
     const countNumber = (number) => {
         var inputNumber = number < 0 ? false : number;
@@ -130,7 +150,12 @@ const Brand = ({ id, isModalProduct, removeItem }) => {
                 <PlaceData>
                     {content?.map((content, idx) => {
                         return (
-                            <Place key={idx} onClick={() => removeItem(id)}>
+                            <Place
+                                key={idx}
+                                onClick={() => removeItem(id)}
+                                min={min === content.estimatedInitialInvestmentCost}
+                                max={max === content.expectationProfit}
+                            >
                                 <div className='logoContainer'>
                                     <img className='placeLogo' src={content.logo} alt='logo'></img>
                                     <div className='delete'>
@@ -140,12 +165,12 @@ const Brand = ({ id, isModalProduct, removeItem }) => {
                                 <div className='placetype'>{content.typeBusiness}</div>
                                 <div className='brand'>{content.franchiseBrandName}</div>
                                 <div className='container'>
-                                    <div className='info'>
+                                    <div className='info' id='cost'>
                                         {countNumber(content.estimatedInitialInvestmentCost)
                                             .toString()
                                             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     </div>
-                                    <div className='info'>
+                                    <div className='info' id='profit'>
                                         {countNumber(content.expectationProfit)
                                             .toString()
                                             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
