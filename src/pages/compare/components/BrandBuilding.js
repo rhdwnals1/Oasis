@@ -20,10 +20,12 @@ const Categories = styled.div`
     text-align: left;
     padding-top: 186px;
     color: #929292;
+
     .category {
         padding: 9px 0;
         border-bottom: 1px solid #eeeeee;
     }
+
     #last {
         margin-bottom: 40px;
     }
@@ -39,15 +41,18 @@ const Place = styled.div`
     font-size: 14px;
     height: 20px;
     font-weight: 700;
+
     .placeimage {
         position: relative;
         margin: 2px 2px 0;
         margin-bottom: 30px;
+
         img {
             width: 188px;
             height: 76px;
             border-radius: 8px;
         }
+
         .placeLogo {
             border-radius: 14px;
             position: absolute;
@@ -56,57 +61,66 @@ const Place = styled.div`
             width: 40px;
             height: 40px;
         }
-    }
-    .delete {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: rgba(0, 0, 0, 0.6);
-        color: #fff;
-        font-size: 1em;
-        font-weight: bold;
-        text-align: center;
-        width: 22px;
-        height: 20px;
-        border-radius: 100%;
-        padding-top: 3px;
-        &:hover {
-            cursor: pointer;
+
+        .background {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+
+            .fa-times {
+                color: #fff;
+                font-weight: 600;
+                margin-top: 3px;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
+
     .placetype {
         font-size: 12px;
         font-weight: 500;
         height: 18px;
     }
+
     .address {
         margin-top: 2px;
     }
+
     .container {
         text-align: right;
         margin-top: 20px;
         font-weight: 500;
+
         .info {
             border-bottom: 1px solid #eeeeee;
             padding: 6.5px 50px 6.5px 30px;
             font-weight: 600;
         }
+
         #cost {
             color: ${(props) => (props.min ? '#005cff' : '#212121')};
         }
+
         #profit {
             color: ${(props) => (props.max ? '#005cff' : '#212121')};
         }
     }
 `;
 
-const BrandBuilding = ({ id, isModalProduct, removeItem }) => {
-    const [content, setContent] = useRecoilState(compareState);
+const BrandBuilding = ({ isModalProduct, removeItem }) => {
+    const [data, setData] = useRecoilState(compareState);
 
-    const cost = content?.map((x) => x.estimatedInitialInvestmentCost);
+    const cost = data?.map((x) => x.estimatedInitialInvestmentCost);
     const min = Math.min.apply(null, cost);
 
-    const profit = content?.map((x) => x.expectationProfit);
+    const profit = data?.map((x) => x.expectationProfit);
     const max = Math.max.apply(null, profit);
 
     const countNumber = (number) => {
@@ -147,49 +161,50 @@ const BrandBuilding = ({ id, isModalProduct, removeItem }) => {
                     </div>
                 </Categories>
                 <PlaceData>
-                    {content?.map((content, idx) => {
+                    {data?.map((data, idx) => {
                         return (
                             <Place
                                 key={idx}
-                                onClick={() => removeItem(id)}
-                                max={max === content.expectationProfit}
-                                min={min === content.estimatedInitialInvestmentCost}
+                                max={max === data.expectationProfit}
+                                min={min === data.estimatedInitialInvestmentCost}
                             >
                                 <div className='placeimage'>
-                                    <img src={content.src} alt='store'></img>
-                                    <img className='placeLogo' src={content.logo} alt='logo'></img>
-                                    <div className='delete'>X</div>
+                                    <img src={data.src} alt='store'></img>
+                                    <img className='placeLogo' src={data.logo} alt='logo'></img>
+                                    <div className='background'>
+                                        <i className='fas fa-times' onClick={() => removeItem(data.id)}></i>
+                                    </div>
                                 </div>
-                                <div className='placetype'>{content.typeBusiness}</div>
-                                <div className='brand'>{content.franchiseBrandName}</div>
-                                <div className='address'>{content.brokerageStoreAddress}</div>
+                                <div className='placetype'>{data.typeBusiness}</div>
+                                <div className='brand'>{data.franchiseBrandName}</div>
+                                <div className='address'>{data.brokerageStoreAddress}</div>
                                 <div className='container'>
                                     <div className='info' id='cost'>
-                                        {countNumber(content.estimatedInitialInvestmentCost)
+                                        {countNumber(data.estimatedInitialInvestmentCost)
                                             .toString()
                                             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     </div>
                                     <div className='info' id='profit'>
-                                        {countNumber(content.expectationProfit)
+                                        {countNumber(data.expectationProfit)
                                             .toString()
                                             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     </div>
                                     <div className='info'>
-                                        {countNumber(content.deposit)
+                                        {countNumber(data.deposit)
                                             .toString()
                                             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     </div>
                                     <div className='info'>
-                                        {countNumber(content.premium)
+                                        {countNumber(data.premium)
                                             .toString()
                                             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     </div>
                                     <div className='info'>
-                                        {Math.floor(content.exclusiveAreaPy * 0.3025)}평 ({content.exclusiveAreaPy}
+                                        {Math.floor(data.exclusiveAreaPy * 0.3025)}평 ({data.exclusiveAreaPy}
                                         ㎡)
                                     </div>
                                     <div className='info'>
-                                        {content.floor}/{content.wholeOfFloor}층
+                                        {data.floor}/{data.wholeOfFloor}층
                                     </div>
                                 </div>
                             </Place>
