@@ -52,19 +52,22 @@ const Place = styled.div`
             height: 40px;
             margin: 20px 0 0;
         }
-        .delete {
+
+        .background {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(0, 0, 0, 0.6);
-            color: #fff;
-            font-size: 1em;
-            font-weight: bold;
-            text-align: center;
-            width: 22px;
+            background-color: rgba(0, 0, 0, 0.6);
+            width: 20px;
             height: 20px;
             border-radius: 100%;
-            padding-top: 3px;
+
+            .fa-times {
+                color: #fff;
+                font-weight: 600;
+                margin-top: 3px;
+            }
+
             &:hover {
                 cursor: pointer;
             }
@@ -105,7 +108,7 @@ const Place = styled.div`
     }
 `;
 
-const Brand = ({ id, isModalProduct, removeItem }) => {
+const Brand = ({ isModalProduct, removeItem }) => {
     const [content, setContent] = useRecoilState(compareState);
 
     const cost = content.map((x) => x.estimatedInitialInvestmentCost);
@@ -139,49 +142,50 @@ const Brand = ({ id, isModalProduct, removeItem }) => {
     };
 
     return (
-        <>
-            <WrapModal isModalProduct={isModalProduct}>
-                <Categories>
-                    <div className='category'>예상 창업비용</div>
-                    <div className='category' id='last'>
-                        예상 월 수익
-                    </div>
-                </Categories>
-                <PlaceData>
-                    {content?.map((content, idx) => {
-                        return (
-                            <Place
-                                key={idx}
-                                onClick={() => removeItem(id)}
-                                min={min === content.estimatedInitialInvestmentCost}
-                                max={max === content.expectationProfit}
-                            >
-                                <div className='logoContainer'>
-                                    <img className='placeLogo' src={content.logo} alt='logo'></img>
+        <WrapModal isModalProduct={isModalProduct}>
+            <Categories>
+                <div className='category'>예상 창업비용</div>
+                <div className='category' id='last'>
+                    예상 월 수익
+                </div>
+            </Categories>
+            <PlaceData>
+                {content?.map((content, idx) => {
+                    // console.log(content);
+                    return (
+                        <Place
+                            key={idx}
+                            // onClick={() => removeItem(content.id)}
+                            min={min === content.estimatedInitialInvestmentCost}
+                            max={max === content.expectationProfit}
+                        >
+                            <div className='logoContainer'>
+                                <img className='placeLogo' src={content.logo} alt='logo'></img>
+                                <div className='background'>
                                     <div className='delete'>
-                                        <span id='cross'>X</span>
+                                        <i className='fas fa-times' onClick={() => removeItem(content.id)}></i>
                                     </div>
                                 </div>
-                                <div className='placetype'>{content.typeBusiness}</div>
-                                <div className='brand'>{content.franchiseBrandName}</div>
-                                <div className='container'>
-                                    <div className='info' id='cost'>
-                                        {countNumber(content.estimatedInitialInvestmentCost)
-                                            .toString()
-                                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                                    </div>
-                                    <div className='info' id='profit'>
-                                        {countNumber(content.expectationProfit)
-                                            .toString()
-                                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                                    </div>
+                            </div>
+                            <div className='placetype'>{content.typeBusiness}</div>
+                            <div className='brand'>{content.franchiseBrandName}</div>
+                            <div className='container'>
+                                <div className='info' id='cost'>
+                                    {countNumber(content.estimatedInitialInvestmentCost)
+                                        .toString()
+                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                 </div>
-                            </Place>
-                        );
-                    })}
-                </PlaceData>
-            </WrapModal>
-        </>
+                                <div className='info' id='profit'>
+                                    {countNumber(content.expectationProfit)
+                                        .toString()
+                                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                </div>
+                            </div>
+                        </Place>
+                    );
+                })}
+            </PlaceData>
+        </WrapModal>
     );
 };
 

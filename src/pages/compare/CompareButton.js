@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import ModalButton from './ModalButton';
+import ModalButton from '../compare/modalButton';
 import { API } from '../config';
 import { atom, useRecoilState } from 'recoil';
 
@@ -27,11 +27,15 @@ const CompareButton = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalProduct, setIsModalProduct] = useState(false);
     const [data, setData] = useRecoilState(compareState);
+    const [newData, setNewData] = useState([]);
 
     useEffect(() => {
         fetch(API)
             .then((res) => res.json())
-            .then((res) => setData(res.data.content));
+            .then((res) => {
+                setData(res.data.content);
+                setNewData(res.data.new_content);
+            });
     }, []);
 
     const handleShowModal = () => {
@@ -43,11 +47,12 @@ const CompareButton = () => {
     };
 
     const handleCheck = (e) => {
-        const item = data[2];
+        const item = data[0];
         const { checked } = e.target;
         if (checked) {
             addItem(new Date().getMilliseconds(), item);
         } else {
+            console.log(item);
             removeItem(item.id);
         }
     };
@@ -56,8 +61,8 @@ const CompareButton = () => {
         setData((data) => [...data, { ...item, id }]);
     };
 
-    const removeItem = (id) => {
-        setData(data.filter((data) => data.id !== id));
+    const removeItem = (el) => {
+        setData(data.filter((data) => data.id !== el));
     };
 
     return (
