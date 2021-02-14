@@ -162,6 +162,7 @@ const BrandBuilding = ({ isModalProduct, removeItem }) => {
                 </Categories>
                 <PlaceData>
                     {data?.map((data, idx) => {
+                        console.log(data);
                         return (
                             <Place
                                 key={idx}
