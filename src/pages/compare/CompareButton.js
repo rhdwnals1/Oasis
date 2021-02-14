@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import ModalButton from '../compare/modalButton';
+import ModalButton from '../compare/ModalButton';
 import { API } from '../config';
 import { atom, useRecoilState } from 'recoil';
 

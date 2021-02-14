@@ -109,12 +109,12 @@ const Place = styled.div`
 `;
 
 const Brand = ({ isModalProduct, removeItem }) => {
-    const [content, setContent] = useRecoilState(compareState);
+    const [data, setData] = useRecoilState(compareState);
 
-    const cost = content.map((x) => x.estimatedInitialInvestmentCost);
+    const cost = data.map((x) => x.estimatedInitialInvestmentCost);
     const min = Math.min.apply(null, cost);
 
-    const profit = content.map((x) => x.expectationProfit);
+    const profit = data.map((x) => x.expectationProfit);
     const max = Math.max.apply(null, profit);
 
     const countNumber = (number) => {
@@ -150,33 +150,29 @@ const Brand = ({ isModalProduct, removeItem }) => {
                 </div>
             </Categories>
             <PlaceData>
-                {content?.map((content, idx) => {
-                    // console.log(content);
+                {data?.map((data, idx) => {
                     return (
                         <Place
                             key={idx}
-                            // onClick={() => removeItem(content.id)}
-                            min={min === content.estimatedInitialInvestmentCost}
-                            max={max === content.expectationProfit}
+                            min={min === data.estimatedInitialInvestmentCost}
+                            max={max === data.expectationProfit}
                         >
                             <div className='logoContainer'>
-                                <img className='placeLogo' src={content.logo} alt='logo'></img>
+                                <img className='placeLogo' src={data.logo} alt='logo'></img>
                                 <div className='background'>
-                                    <div className='delete'>
-                                        <i className='fas fa-times' onClick={() => removeItem(content.id)}></i>
-                                    </div>
+                                    <i className='fas fa-times' onClick={() => removeItem(data.id)}></i>
                                 </div>
                             </div>
-                            <div className='placetype'>{content.typeBusiness}</div>
-                            <div className='brand'>{content.franchiseBrandName}</div>
+                            <div className='placetype'>{data.typeBusiness}</div>
+                            <div className='brand'>{data.franchiseBrandName}</div>
                             <div className='container'>
                                 <div className='info' id='cost'>
-                                    {countNumber(content.estimatedInitialInvestmentCost)
+                                    {countNumber(data.estimatedInitialInvestmentCost)
                                         .toString()
                                         .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                 </div>
                                 <div className='info' id='profit'>
-                                    {countNumber(content.expectationProfit)
+                                    {countNumber(data.expectationProfit)
                                         .toString()
                                         .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                 </div>

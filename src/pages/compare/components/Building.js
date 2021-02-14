@@ -20,10 +20,12 @@ const Categories = styled.div`
     text-align: left;
     padding-top: 127px;
     color: #929292;
+
     .category {
         padding: 9px 0;
         border-bottom: 1px solid #eeeeee;
     }
+
     #last {
         margin-bottom: 40px;
     }
@@ -39,41 +41,39 @@ const Place = styled.div`
     font-size: 14px;
     height: 20px;
     font-weight: 700;
+
     .placeimage {
         position: relative;
         margin: 2px 2px 0;
         margin-bottom: 14px;
+
         img {
             width: 188px;
             height: 76px;
             border-radius: 8px;
         }
-        .placeLogo {
-            border-radius: 14px;
+
+        .background {
             position: absolute;
-            top: 55px;
-            left: 75px;
-            width: 40px;
-            height: 40px;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+
+            .fa-times {
+                color: #fff;
+                font-weight: 600;
+                margin-top: 3px;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
-    .delete {
-        position: absolute;
-        top: 8px;
-        right: 5px;
-        background: rgba(0, 0, 0, 0.6);
-        color: #fff;
-        font-size: 1em;
-        font-weight: bold;
-        text-align: center;
-        width: 22px;
-        height: 20px;
-        border-radius: 100%;
-        padding-top: 3px;
-        &:hover {
-            cursor: pointer;
-        }
-    }
+
     .placetype {
         font-size: 12px;
         font-weight: 500;
@@ -97,7 +97,7 @@ const Place = styled.div`
     }
 `;
 
-const Building = ({ id, isModalProduct, removeItem }) => {
+const Building = ({ isModalProduct, removeItem }) => {
     const [data, setData] = useRecoilState(compareState);
 
     const cost = data.map((x) => x.estimatedInitialInvestmentCost);
@@ -143,14 +143,12 @@ const Building = ({ id, isModalProduct, removeItem }) => {
                 <PlaceData>
                     {data?.map((data, idx) => {
                         return (
-                            <Place
-                                key={idx}
-                                onClick={() => removeItem(id)}
-                                min={min === data.estimatedInitialInvestmentCost}
-                            >
+                            <Place key={idx} min={min === data.estimatedInitialInvestmentCost}>
                                 <div className='placeimage'>
                                     <img src={data.src} alt='store'></img>
-                                    <div className='delete'>X</div>
+                                    <div className='background'>
+                                        <i className='fas fa-times' onClick={() => removeItem(data.id)}></i>
+                                    </div>
                                 </div>
                                 <div className='address'>{data.brokerageStoreAddress}</div>
                                 <div className='container'>
