@@ -20,6 +20,7 @@ const Categories = styled.div`
     text-align: left;
     padding-top: 133px;
     color: #929292;
+
     .category {
         padding: 9px 0;
         border-bottom: 1px solid #eeeeee;
