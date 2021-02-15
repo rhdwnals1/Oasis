@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { compareState } from '../CompareButton';
+import { compareState } from '../MobileMatchingCompare';
 
 const EmptyContainer = styled.div`
     display: ${(props) => (props.setContent !== undefined ? 'none' : 'flex')};

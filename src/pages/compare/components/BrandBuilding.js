@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { compareState } from '../CompareButton';
+import { compareState } from '../MobileMatchingCompare';
 
 const WrapModal = styled.div`
     display: ${(props) => (props.isModalProduct ? 'flex' : 'none')};

@@ -3,9 +3,9 @@
         "content": [
             {
                 "id": 0,
-                "typeBusiness": "카페",
                 "src": "https://i.esdrop.com/d/wvQH6SsNdX.jpg",
                 "logo": "https://i.esdrop.com/d/XWNL8gBEYg.png",
+                "typeBusiness": "카페",
                 "number": "210129-ZDR3U3P0",
                 "estimateType": "BRAND_AND_STORE",
                 "matchingRequestId": 733,
