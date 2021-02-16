@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { compareState } from '../MobileMatchingCompare';
+import { compareState } from '../PCMatchingCompare';
 
 const WrapModal = styled.div`
     display: ${(props) => (props.isModalProduct ? 'flex' : 'none')};
@@ -169,6 +169,7 @@ const BrandBuilding = ({ isModalProduct, removeItem }) => {
                                 max={max === data.expectationProfit}
                                 min={min === data.estimatedInitialInvestmentCost}
                             >
+                                {/* {console.log(data.expectationProfit)} */}
                                 <div className='placeimage'>
                                     <img src={data.src} alt='store'></img>
                                     <img className='placeLogo' src={data.logo} alt='logo'></img>
@@ -196,9 +197,11 @@ const BrandBuilding = ({ isModalProduct, removeItem }) => {
                                             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     </div>
                                     <div className='info'>
-                                        {countNumber(data.premium)
-                                            .toString()
-                                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                        {data.premium === '없음'
+                                            ? '없음'
+                                            : countNumber(data.premium)
+                                                  .toString()
+                                                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     </div>
                                     <div className='info'>
                                         {Math.floor(data.exclusiveAreaPy * 0.3025)}평 ({data.exclusiveAreaPy}

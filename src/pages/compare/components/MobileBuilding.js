@@ -36,7 +36,8 @@ const Compare = styled.div`
     font-weight: 500;
     text-align: center;
     margin: 10px auto 9px;
-    padding-top: 3px;
+    font-family: NotoSansKR;
+    padding-top: 2px;
 `;
 
 const Wrapper = styled.div``;
@@ -45,36 +46,33 @@ const Place = styled.div`
     position: relative;
     margin: 14px 0 0;
 
-    .logo {
-        border-radius: 14px;
+    .store {
         justify-content: center;
-        width: 40px;
-        height: 40px;
+        width: 80px;
+        height: 79px;
         margin-right: 14px;
     }
 `;
 
 const NameContainer = styled.div`
     display: flex;
-    margin: 0 20px;
     width: 320px;
     height: 40px;
-    padding-top: 2px;
 `;
 
 const Info = styled.div`
     .brand {
+        margin-top: 4px;
         font-size: 12px;
         font-weight: bold;
-        height: 18px;
-        padding-top: 2px;
+        height: 14px;
     }
 
     .placetype {
-        height: 15px;
         font-size: 10px;
+        color: #212121;
         font-weight: 500;
-        color: #9e9e9e;
+        height: 15px;
     }
 
     .background {
@@ -109,11 +107,11 @@ const Detail = styled.div`
 
 const CostContainer = styled.div`
     display: flex;
-    justify-content: flex-start;
-    margin-left: 74px;
+    justify-content: space-start;
+    margin-left: 94px;
     margin-top: 4px;
     border-bottom: 1px solid #eeeeee;
-    padding-bottom: 8px;
+    padding-bottom: 14px;
     font-family: NotoSansKR;
 
     .category {
@@ -125,12 +123,12 @@ const CostContainer = styled.div`
 `;
 
 const DetailInfo = styled.div`
-    width: 133px;
+    width: 82px;
     height: 35px;
 
     .info {
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 500;
         height: 18px;
         margin-top: 2px;
     }
@@ -156,13 +154,6 @@ const MobileBrand = () => {
     const cost = data?.map((x) => x.estimatedInitialInvestmentCost);
     const min = Math.min.apply(null, cost);
 
-    const profit = data?.map((x) => x.expectationProfit);
-    const max = Math.max.apply(null, profit);
-
-    const removeItem = (el) => {
-        setData(data.filter((data) => data.id !== el));
-    };
-
     const countNumber = (number) => {
         var inputNumber = number < 0 ? false : number;
         var unitWords = ['', ' 만원'];
@@ -187,7 +178,11 @@ const MobileBrand = () => {
         return resultString;
     };
 
-    console.log(min);
+    const removeItem = (el) => {
+        setData(data.filter((data) => data.id !== el));
+    };
+
+    console.log(data.length);
     return (
         <BrandContainer>
             <Title>
@@ -206,28 +201,41 @@ const MobileBrand = () => {
                         <Place key={idx}>
                             <Detail>
                                 <NameContainer>
-                                    <img className='logo' src={data.logo} alt='logo'></img>
+                                    <img className='store' src={data.src} alt='logo'></img>
                                     <Info>
-                                        <div className='brand'>{data.franchiseBrandName}</div>
-                                        <div className='placetype'>{data.typeBusiness}</div>
+                                        <div className='brand'>{data.brokerageStoreAddress}</div>
+                                        <div className='placetype'>
+                                            {Math.floor(data.exclusiveAreaPy * 0.3025)}평 ({data.exclusiveAreaPy}
+                                            ㎡) | {data.floor}/{data.wholeOfFloor}층
+                                        </div>
                                         <div className='background'>
                                             <i className='fas fa-times' onClick={() => removeItem(data.id)}></i>
                                         </div>
                                     </Info>
                                 </NameContainer>
                                 <CostContainer>
-                                    <DetailInfo min={min === data.estimatedInitialInvestmentCost}>
-                                        <div className='category'>예상 창업비용</div>
-                                        <div className='info' id='cost'>
-                                            {countNumber(data.estimatedInitialInvestmentCost)
+                                    <DetailInfo>
+                                        <div className='category'>보증금</div>
+                                        <div className='info' id='profit'>
+                                            {countNumber(data.deposit)
                                                 .toString()
                                                 .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                         </div>
                                     </DetailInfo>
-                                    <DetailInfo max={max === data.expectationProfit}>
-                                        <div className='category'>예상 월 수익</div>
+                                    <DetailInfo>
+                                        <div className='category'>권리금</div>
                                         <div className='info' id='profit'>
-                                            {countNumber(data.expectationProfit)
+                                            {data.premium === '없음'
+                                                ? '없음'
+                                                : countNumber(data.premium)
+                                                      .toString()
+                                                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                        </div>
+                                    </DetailInfo>
+                                    <DetailInfo min={min === data.estimatedInitialInvestmentCost}>
+                                        <div className='category'>예상 창업비용</div>
+                                        <div className='info' id='cost'>
+                                            {countNumber(data.estimatedInitialInvestmentCost)
                                                 .toString()
                                                 .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                         </div>
