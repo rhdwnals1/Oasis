@@ -22,7 +22,7 @@ const Text = styled.div`
     color: #212121;
     text-align: center;
     font-weight: 600;
-    margin: 14px 0;
+    margin: 14px 0 37px;
     line-height: 1.4;
 `;
 

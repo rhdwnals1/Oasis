@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { compareState } from '../CompareButton';
+import { compareState } from '../PCMatchingCompare';
 import { useRecoilState } from 'recoil';
 
 const WrapModal = styled.div`
@@ -18,11 +18,11 @@ const Categories = styled.div`
     justify-content: flex-end;
     width: 60px;
     text-align: left;
-    padding-top: 133px;
+    padding-top: 125px;
     color: #929292;
 
     .category {
-        padding: 9px 0;
+        padding: 8.5px 0;
         border-bottom: 1px solid #eeeeee;
     }
     #last {

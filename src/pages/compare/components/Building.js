@@ -18,11 +18,11 @@ const Categories = styled.div`
     justify-content: flex-end;
     width: 60px;
     text-align: left;
-    padding-top: 127px;
+    padding-top: 123px;
     color: #929292;
 
     .category {
-        padding: 9px 0;
+        padding: 8.5px 0;
         border-bottom: 1px solid #eeeeee;
     }
 

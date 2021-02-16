@@ -151,10 +151,10 @@ const PCMatchingCompare = () => {
                 </Compare>
                 <Line />
                 {data.length !== 0 ? (
-                    <BrandBuilding isModalProduct={isModalProduct} removeItem={removeItem} />
-                ) : (
-                    // <Building isModalProduct={isModalProduct} removeItem={removeItem} />
+                    // <BrandBuilding isModalProduct={isModalProduct} removeItem={removeItem} />
                     // <Brand isModalProduct={isModalProduct} removeItem={removeItem} />
+                    <Building isModalProduct={isModalProduct} removeItem={removeItem} />
+                ) : (
                     <NothingPage isModalProduct={isModalProduct} />
                 )}
             </Toggle>
