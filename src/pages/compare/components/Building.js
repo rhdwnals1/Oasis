@@ -102,7 +102,6 @@ const Building = ({ isModalProduct, removeItem }) => {
 
     const cost = data.map((x) => x.estimatedInitialInvestmentCost);
     const min = Math.min.apply(null, cost);
-    // console.log(min);
 
     const countNumber = (number) => {
         var inputNumber = number < 0 ? false : number;
