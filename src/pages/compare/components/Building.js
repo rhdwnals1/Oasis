@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { compareState } from '../CompareButton';
+import { compareState } from '../PCMatchingCompare';
 
 const WrapModal = styled.div`
     display: ${(props) => (props.isModalProduct ? 'flex' : 'none')};
@@ -163,9 +163,11 @@ const Building = ({ isModalProduct, removeItem }) => {
                                             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     </div>
                                     <div className='info'>
-                                        {countNumber(data.premium)
-                                            .toString()
-                                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                        {data.premium === '없음'
+                                            ? '없음'
+                                            : countNumber(data.premium)
+                                                  .toString()
+                                                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     </div>
                                     <div className='info'>
                                         {Math.floor(data.exclusiveAreaPy * 0.3025)}평 ({data.exclusiveAreaPy}㎡)

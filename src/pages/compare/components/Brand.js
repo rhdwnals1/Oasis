@@ -112,10 +112,10 @@ const Place = styled.div`
 const Brand = ({ isModalProduct, removeItem }) => {
     const [data, setData] = useRecoilState(compareState);
 
-    const cost = data.map((x) => x.estimatedInitialInvestmentCost);
+    const cost = data?.map((x) => x.estimatedInitialInvestmentCost);
     const min = Math.min.apply(null, cost);
 
-    const profit = data.map((x) => x.expectationProfit);
+    const profit = data?.map((x) => x.expectationProfit);
     const max = Math.max.apply(null, profit);
 
     const countNumber = (number) => {
