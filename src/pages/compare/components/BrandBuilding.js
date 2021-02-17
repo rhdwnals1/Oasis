@@ -18,11 +18,11 @@ const Categories = styled.div`
     justify-content: flex-end;
     width: 60px;
     text-align: left;
-    padding-top: 186px;
+    padding-top: 179px;
     color: #929292;
 
     .category {
-        padding: 9px 0;
+        padding: 8.5px 0;
         border-bottom: 1px solid #eeeeee;
     }
 
@@ -169,7 +169,6 @@ const BrandBuilding = ({ isModalProduct, removeItem }) => {
                                 max={max === data.expectationProfit}
                                 min={min === data.estimatedInitialInvestmentCost}
                             >
-                                {/* {console.log(data.expectationProfit)} */}
                                 <div className='placeimage'>
                                     <img src={data.src} alt='store'></img>
                                     <img className='placeLogo' src={data.logo} alt='logo'></img>
