@@ -2,23 +2,30 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Place = styled.div`
-    position: relative;
     justify-content: center;
     text-align: center;
     font-size: 14px;
     height: 20px;
-    width: 192px;
     font-weight: 700;
 
-    .logoContainer {
+    .placeimage {
         position: relative;
+        margin: 2px 2px 0;
+        margin-bottom: 30px;
+
+        img {
+            width: 188px;
+            height: 76px;
+            border-radius: 8px;
+        }
 
         .placeLogo {
             border-radius: 14px;
-            justify-content: center;
+            position: absolute;
+            top: 55px;
+            left: 75px;
             width: 40px;
             height: 40px;
-            margin: 20px 0 0;
         }
 
         .background {
@@ -45,38 +52,35 @@ const Place = styled.div`
     .placetype {
         font-size: 12px;
         font-weight: 500;
-        margin-top: 10px;
         height: 18px;
-        text-align: center;
     }
 
-    .brand {
-        height: 20px;
+    .address {
+        margin-top: 2px;
     }
 
     .container {
         text-align: right;
-        margin-top: 14px;
+        margin-top: 20px;
         font-weight: 500;
 
         .info {
             border-bottom: 1px solid #eeeeee;
             padding: 6.5px 50px 6.5px 30px;
             font-weight: 600;
-            color: #212121;
         }
 
-        #cost {
+        .cost {
             color: ${(props) => (props.min ? '#005cff' : '#212121')};
         }
 
-        #profit {
+        .profit {
             color: ${(props) => (props.max ? '#005cff' : '#212121')};
         }
     }
 `;
 
-const Brand = ({ data, minEstimatedInitialInvestmentCost, maxExpectationProfit, removeItem }) => {
+const BrandStore = ({ data, minEstimatedInitialInvestmentCost, maxExpectationProfit, removeItem }) => {
     const formatMoneyNumber = (number) => {
         if (!number) return '없음';
         return (number / 10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' 만원';
@@ -87,7 +91,8 @@ const Brand = ({ data, minEstimatedInitialInvestmentCost, maxExpectationProfit, 
             min={minEstimatedInitialInvestmentCost === data.estimatedInitialInvestmentCost}
             max={maxExpectationProfit === data.expectationProfit}
         >
-            <div className='logoContainer'>
+            <div className='placeimage'>
+                <img src={data.src} alt='store'></img>
                 <img className='placeLogo' src={data.logo} alt='logo'></img>
                 <div className='background'>
                     <i className='fas fa-times' onClick={() => removeItem(data.id)}></i>
@@ -95,16 +100,24 @@ const Brand = ({ data, minEstimatedInitialInvestmentCost, maxExpectationProfit, 
             </div>
             <div className='placetype'>{data.typeBusiness}</div>
             <div className='brand'>{data.franchiseBrandName}</div>
+            <div className='address'>{data.brokerageStoreAddress}</div>
             <div className='container'>
-                <div className='info' id='cost'>
-                    {formatMoneyNumber(data.estimatedInitialInvestmentCost)}
+                <div className='info cost'>{formatMoneyNumber(data.estimatedInitialInvestmentCost)}</div>
+                <div className='info profit'>{formatMoneyNumber(data.expectationProfit)}</div>
+                <div className='info'>{formatMoneyNumber(data.deposit)}</div>
+                <div className='info' id='premium'>
+                    {formatMoneyNumber(data.premium)}
                 </div>
-                <div className='info' id='profit'>
-                    {formatMoneyNumber(data.expectationProfit)}
+                <div className='info'>
+                    {Math.floor(data.exclusiveAreaPy * 0.3025)}평 ({data.exclusiveAreaPy}
+                    ㎡)
+                </div>
+                <div className='info'>
+                    {data.floor}/{data.wholeOfFloor}층
                 </div>
             </div>
         </Place>
     );
 };
 
-export default Brand;
+export default BrandStore;

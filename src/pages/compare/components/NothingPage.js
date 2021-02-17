@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { compareState } from '../MobileMatchingCompare';
 
 const EmptyContainer = styled.div`
     display: ${(props) => (props.setContent !== undefined ? 'none' : 'flex')};
@@ -27,8 +25,6 @@ const Text = styled.div`
 `;
 
 const NothingPage = ({ isModalProduct }) => {
-    const [content, setContent] = useRecoilState(compareState);
-
     return (
         <EmptyContainer isModalProduct={isModalProduct}>
             <Empty>

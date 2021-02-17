@@ -2,25 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Place = styled.div`
-    position: relative;
     justify-content: center;
     text-align: center;
     font-size: 14px;
     height: 20px;
-    width: 192px;
     font-weight: 700;
-
-    .logoContainer {
+    .placeimage {
         position: relative;
-
-        .placeLogo {
-            border-radius: 14px;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            margin: 20px 0 0;
+        margin: 2px 2px 0;
+        margin-bottom: 14px;
+        img {
+            width: 188px;
+            height: 76px;
+            border-radius: 8px;
         }
-
         .background {
             position: absolute;
             top: 10px;
@@ -29,82 +24,66 @@ const Place = styled.div`
             width: 20px;
             height: 20px;
             border-radius: 100%;
-
             .fa-times {
                 color: #fff;
                 font-weight: 600;
                 margin-top: 3px;
             }
-
             &:hover {
                 cursor: pointer;
             }
         }
     }
-
     .placetype {
         font-size: 12px;
         font-weight: 500;
-        margin-top: 10px;
         height: 18px;
-        text-align: center;
     }
-
-    .brand {
-        height: 20px;
-    }
-
     .container {
         text-align: right;
-        margin-top: 14px;
+        margin-top: 13.5px;
         font-weight: 500;
-
         .info {
             border-bottom: 1px solid #eeeeee;
             padding: 6.5px 50px 6.5px 30px;
-            font-weight: 600;
-            color: #212121;
+            font-weight: 500;
         }
-
         #cost {
             color: ${(props) => (props.min ? '#005cff' : '#212121')};
-        }
-
-        #profit {
-            color: ${(props) => (props.max ? '#005cff' : '#212121')};
         }
     }
 `;
 
-const Brand = ({ data, minEstimatedInitialInvestmentCost, maxExpectationProfit, removeItem }) => {
+const Store = ({ data, minEstimatedInitialInvestmentCost, removeItem }) => {
     const formatMoneyNumber = (number) => {
         if (!number) return '없음';
         return (number / 10000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' 만원';
     };
 
     return (
-        <Place
-            min={minEstimatedInitialInvestmentCost === data.estimatedInitialInvestmentCost}
-            max={maxExpectationProfit === data.expectationProfit}
-        >
-            <div className='logoContainer'>
-                <img className='placeLogo' src={data.logo} alt='logo'></img>
+        <Place min={minEstimatedInitialInvestmentCost === data.estimatedInitialInvestmentCost}>
+            <div className='placeimage'>
+                <img src={data.src} alt='store' />
                 <div className='background'>
                     <i className='fas fa-times' onClick={() => removeItem(data.id)}></i>
                 </div>
             </div>
-            <div className='placetype'>{data.typeBusiness}</div>
-            <div className='brand'>{data.franchiseBrandName}</div>
+            <div className='address'>{data.brokerageStoreAddress}</div>
             <div className='container'>
                 <div className='info' id='cost'>
                     {formatMoneyNumber(data.estimatedInitialInvestmentCost)}
                 </div>
-                <div className='info' id='profit'>
-                    {formatMoneyNumber(data.expectationProfit)}
+                <div className='info'>{formatMoneyNumber(data.deposit)}</div>
+                <div className='info'>{formatMoneyNumber(data.premium)}</div>
+                <div className='info'>
+                    {Math.floor(data.exclusiveAreaPy * 0.3025)}평 ({data.exclusiveAreaPy}㎡)
+                </div>
+                <div className='info'>
+                    {data.floor}/{data.wholeOfFloor}층
                 </div>
             </div>
         </Place>
     );
 };
 
-export default Brand;
+export default Store;

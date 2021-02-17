@@ -182,7 +182,7 @@ const MobileBrand = () => {
         setData(data.filter((data) => data.id !== el));
     };
 
-    console.log(data.length);
+    // console.log(data.length);
     return (
         <BrandContainer>
             <Title>
