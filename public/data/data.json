@@ -35,7 +35,7 @@
                 "floor": 4,
                 "wholeOfFloor": 6,
                 "exclusiveAreaPy": 29.0,
-                "premium": "없음",
+                "premium": 0,
                 "deposit": 80000000,
                 "expectationProfit": 27500000
             },
