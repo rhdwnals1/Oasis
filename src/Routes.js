@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Parent from './pages/props/Parent';
-import Mother from './pages/props/Mother';
-import MatchingCompare from './pages/compare';
+// import Parent from './pages/props/Parent';
+// import Mother from './pages/props/Mother';
+import Main from './pages/compare/Main';
 import MobileBrand from './pages/compare/components/MobileBrand';
 import MobileNothing from './pages/compare/components/MobileNothing';
 import MobileMatchingCompare from './pages/compare/MobileMatchingCompare';
@@ -13,9 +13,9 @@ const Routes = () => {
     return (
         <Router>
             <Switch>
-                <Route exact path='/parent' component={Parent}></Route>
-                <Route exact path='/mother' component={Mother}></Route>
-                <Route exact path='/' component={MatchingCompare}></Route>
+                {/* <Route exact path='/parent' component={Parent}></Route>
+                <Route exact path='/mother' component={Mother}></Route> */}
+                <Route exact path='/' component={Main}></Route>
                 <Route exact path='/mobilebrand' component={MobileBrand}></Route>
                 <Route exact path='/mobilebuilding' component={MobileBuilding}></Route>
                 <Route exact path='/mobilebrandbuilding' component={MobileBrandBuilding}></Route>
